@@ -53,12 +53,20 @@ while True:
     filename=client_socket.recv(32).decode()
     filesize= os.path.getsize(filename)
     client_socket.send(f"{filesize}".encode())
-    print("Filesize sent")
-    
+   # print("Filesize sent")
+    BUFFER_SIZE = 32*1024
     f=open(filename, 'rb')
-    l=f.read()
-    client_socket.sendall(l)    
+    filesize_remaining=filesize
+    while filesize_remaining>0:
+        if filesize_remaining < BUFFER_SIZE:
+            BUFFER_SIZE = filesize
+        bytes_read = f.read(BUFFER_SIZE)
+        client_socket.send(bytes_read)
+        filesize_remaining=filesize_remaining-BUFFER_SIZE  
     f.close()
+    #l=f.read()
+    #client_socket.sendall(l)    
+    #f.close()
     print(filename,"sent")
 
 client_socket.close()

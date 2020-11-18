@@ -41,7 +41,7 @@ s.connect((host, port))
 print("[+] Connected.")
 
 
-file_arr=["War_and_Peace.txt","Beowulf.txt","Dracula.txt","Dracula.txt","Sherlock Holmes.txt" ]
+file_arr=["War_and_Peace.txt","Beowulf.txt","Dracula.txt","Moby_Dick.txt","Sherlock Holmes.txt" ]
 #n=len(file_arr)
 #s.send(f"{n}".encode())
 l=["A","B","C","D","E"]
@@ -59,7 +59,6 @@ for filename in file_arr:
     BUFFER_SIZE = 32*1024
     filesize_remaining=filesize
     while filesize_remaining>0:
-        print(filesize_remaining)
         if filesize_remaining < BUFFER_SIZE:
             BUFFER_SIZE = filesize
         bytes_read = s.recv(BUFFER_SIZE)
